@@ -5,6 +5,7 @@ function updateSubtotal(product) {
 
     const price = product.querySelector('.price span').innerHTML;
     const quantity = product.querySelector('#cart > tbody > tr > td.quantity > input[type=number]').value;
+    //console(price.quantity);
     let subtotalPrice = price * quantity;
     let subtotal = product.querySelector('.subtotal span');
     subtotal.innerText = subtotalPrice
@@ -44,11 +45,11 @@ function calculateAll() {
     
 function removeProduct(event) {
   const target = event.currentTarget;
-  console.log('The target in remove is:', target);
+  console.log('The target in remove is:', target.parentNode.parentNode);
   //... your code goes here
-  const ul = target.parentNode;
-    console.log(ul);
-    ul.removeChild(target)
+  const product = target.parentNode.parentNode;
+  product.remove();  
+  calculateAll();
 }
 
 
@@ -62,14 +63,15 @@ function createProduct() {
 }
 
 
+ const removeProductBtns = document.querySelectorAll('.btn-remove');
+ removeProductBtns.forEach(function(button){
+   button.onclick=removeProduct;   
+ }); 
+  //... your code goes here
 
 
 window.addEventListener('load', () => {
   const calculatePricesBtn = document.getElementById('calculate');
   calculatePricesBtn.addEventListener('click', calculateAll);
   //... your code goes here
-  
-  //for (  )
-  //const RemoveBtn = document.getElementsByClassName('.btn btn-remove');
-  
 });
